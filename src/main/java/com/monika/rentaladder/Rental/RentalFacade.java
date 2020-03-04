@@ -4,6 +4,8 @@ import com.monika.rentaladder.Item.ItemEntity;
 import com.monika.rentaladder.Item.ItemFacade;
 import com.monika.rentaladder.User.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.time.Clock;
 import java.time.Duration;
@@ -18,7 +20,7 @@ public class RentalFacade {
     private ItemFacade itemFacade;
 
 
-    public void rent(RentalEntity rental) {
+    public void rentItem(RentalEntity rental) {
         rentalRepository.save(rental);
     }
 
@@ -41,4 +43,7 @@ public class RentalFacade {
         final Duration timeDiff = Duration.between(rentalDate, returnDate);
         return Math.toIntExact(timeDiff.toDays());
     }
+
+    public Page<RentalEntity> getAllRentals(Pageable pageable) {
+            return rentalRepository.findAll(pageable);
 }

@@ -11,20 +11,20 @@ public class ItemFacade {
     @Autowired
     private ItemRepository itemRepository;
 
-    public void add(ItemEntity item){
+    public void addItem(ItemEntity item){
         itemRepository.save(item);
 
     }
-    public ItemEntity show(Long id){
+    public ItemEntity getItemById(Long id){
         return itemRepository.findById(id);
 
     }
-    public List<ItemEntity> searchByCategory(ItemCategory category) {
+    public List<ItemEntity> getItemByCategory(ItemCategory category) {
         // todo dodac weryf isAval...
         return itemRepository.findByCategory(category);
     }
 
-    public Page<ItemEntity> findAll(Pageable pageable) {
+    public Page<ItemEntity> getAllItems(Pageable pageable) {
         // todo dodac weryf isAval...
         return itemRepository.findAll(pageable);
     }

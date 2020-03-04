@@ -16,23 +16,23 @@ public class ItemController {
     }
 
     @GetMapping("items")
-    Page<ItemEntity> getItems(Pageable pageable) {
-        return itemFacade.findAll(pageable);
+    Page<ItemEntity> getAllItems(Pageable pageable) {
+        return itemFacade.getAllItems(pageable);
     }
 
     @GetMapping("item/{id}")
-    ItemEntity getItem(@PathVariable Long id) {
-        return itemFacade.show(id);
+    ItemEntity getItemById(@PathVariable Long id) {
+        return itemFacade.getItemById(id);
     }
 
     @GetMapping("item/{category}")
-    List<ItemEntity> searchByCategory(@PathVariable ItemCategory category) {
-        return itemFacade.searchByCategory(category);
+    List<ItemEntity> getItemByCategory(@PathVariable ItemCategory category) {
+        return itemFacade.getItemByCategory(category);
     }
 
     @PostMapping("/item")
     void addItem(@RequestBody ItemEntity itemEntity) {
-        itemFacade.add(itemEntity);
+        itemFacade.addItem(itemEntity);
     }
 
 }

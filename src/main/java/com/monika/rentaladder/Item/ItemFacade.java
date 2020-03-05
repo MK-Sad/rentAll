@@ -8,8 +8,11 @@ import java.util.List;
 
 public class ItemFacade {
 
-    @Autowired
     private ItemRepository itemRepository;
+
+    public ItemFacade(ItemRepository itemRepository) {
+        this.itemRepository = itemRepository;
+    }
 
     public void addItem(ItemEntity item){
         itemRepository.save(item);

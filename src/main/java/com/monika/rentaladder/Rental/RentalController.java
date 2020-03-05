@@ -12,11 +12,11 @@ public class RentalController {
         this.rentalFacade = rentalFacade;
     }
 
-    public void rentItem(RentalEntity rental) {
+    public rentItem(RentalEntity rental) {
         return rentalFacade.rentItem(rental);
     }
 
-    public void returnItem(ItemEntity item) {
+    public returnItem(ItemEntity item) {
         return rentalFacade.returnItem(item);
     }
 

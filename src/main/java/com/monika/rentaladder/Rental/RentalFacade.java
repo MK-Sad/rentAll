@@ -2,7 +2,6 @@ package com.monika.rentaladder.Rental;
 
 import com.monika.rentaladder.Item.ItemEntity;
 import com.monika.rentaladder.Item.ItemFacade;
-import com.monika.rentaladder.User.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

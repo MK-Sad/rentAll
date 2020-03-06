@@ -14,10 +14,12 @@ import java.util.List;
 
 public class RentalFacade {
 
-    @Autowired
     private RentalRepository rentalRepository;
     private ItemFacade itemFacade;
 
+    public RentalFacade(RentalRepository rentalRepository) {
+        this.rentalRepository = rentalRepository;
+    }
 
     public void rentItem(RentalEntity rental) {
         rentalRepository.save(rental);
@@ -44,5 +46,6 @@ public class RentalFacade {
     }
 
     public Page<RentalEntity> getAllRentals(Pageable pageable) {
-            return rentalRepository.findAll(pageable);
+        return rentalRepository.findAll(pageable);
+    }
 }

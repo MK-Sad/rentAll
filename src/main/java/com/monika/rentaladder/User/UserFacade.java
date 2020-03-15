@@ -7,14 +7,17 @@ import java.util.List;
 
 public class UserFacade {
 
-    @Autowired
     private UserRepository userRepository;
 
-    public void add(UserEntity user){
+    public UserFacade(UserRepository userRepository){
+            this.userRepository = userRepository;
+    }
+
+    public void addUser(UserEntity user){
         userRepository.save(user);
         }
 
-    public List<UserEntity> searchByName(String name){
-        return Collections.emptyList();
+    public UserEntity getUserByName(String name){
+        return userRepository.findByName(name);
     }
 }

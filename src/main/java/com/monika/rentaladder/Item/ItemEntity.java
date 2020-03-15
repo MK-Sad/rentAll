@@ -27,7 +27,6 @@ public class ItemEntity {
 
     private String description;
 
-    private Boolean isAvailable;
 
     public Long getId() {
         return id;

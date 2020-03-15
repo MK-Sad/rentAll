@@ -12,8 +12,6 @@ import java.util.List;
 public class UserEntity {
 
     @Id
-    private Long id;
-
     private String name;
 
     @OneToMany
@@ -21,14 +19,6 @@ public class UserEntity {
 
     @OneToMany
     private List<RentalEntity> rentals;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

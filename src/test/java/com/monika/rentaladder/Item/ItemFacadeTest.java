@@ -28,11 +28,4 @@ class ItemFacadeTest {
         assertEquals(testItemEntity, result.get(0));
     }
 
-    @Test
-    void getItemById() {
-    }
-
-    @Test
-    void getAllItems() {
-    }
 }

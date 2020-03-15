@@ -8,7 +8,11 @@ import org.springframework.data.repository.Repository;
 import java.time.Instant;
 
 interface RentalRepository extends Repository<RentalRepository, Long> {
+
     RentalEntity save(RentalEntity rentalEntity);
+
     RentalEntity findByItemAndReturnDate(ItemEntity itemEntity, Instant returnDate);
+
     Page<RentalEntity> findAll(Pageable pageable);
+
 }

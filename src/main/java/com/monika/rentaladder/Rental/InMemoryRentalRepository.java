@@ -22,8 +22,10 @@ public class InMemoryRentalRepository implements RentalRepository{
     public RentalEntity findByItemAndReturnDate(ItemEntity itemEntity, Instant returnDate){
         return map.entrySet().stream()
                 .map(map -> map.getValue())
-                .filter(v -> ((v.getItem().equals(itemEntity)) && (v.getReturnDate().equals(returnDate))))
-                .findAny().get();
+                .filter(v -> v.getItem().equals(itemEntity))
+                .filter( (returnDate != null) ? (v -> returnDate.equals(v.getReturnDate())) : (v -> v.getReturnDate() == null) )
+                .findAny()
+                .orElse(null);
     }
 
 

@@ -2,15 +2,12 @@ package com.monika.rentaladder.Rental;
 
 import com.monika.rentaladder.Item.ItemEntity;
 import com.monika.rentaladder.Item.ItemFacade;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
 import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Collections;
-import java.util.List;
+
 
 public class RentalFacade {
 
@@ -25,8 +22,7 @@ public class RentalFacade {
         rentalRepository.save(rental);
     }
 
-    public void returnItem(ItemEntity item) {
-
+    public Boolean returnItem(ItemEntity item) {
         //String userName = userGetter.getSignedInUserNameOrAnonymous();
         RentalEntity rentalEntity = rentalRepository.findByItemAndReturnDate(item, null);
         if(rentalEntity==null){
@@ -35,9 +31,20 @@ public class RentalFacade {
         Clock clock = Clock.systemUTC();
         Instant returnDate = clock.instant();
         rentalEntity.setReturnDate(returnDate);
-        rentalRepository.save(rentalEntity);
+        if (rentalRepository.save(rentalEntity) != null) {
+            return true;
+        }
+        return false;
         //int realDays = calculateRentalDays(itemEntity.getRentDate(), returnDate);
     }
+
+    public Boolean isItemRented(ItemEntity item){
+        RentalEntity rentalEntity = rentalRepository.findByItemAndReturnDate(item, null);
+        if (rentalEntity==null){
+            return false;
+        }
+        return true;
+        }
 
     private int calculateRentalDays(Instant rentalDate, Instant returnDate)
     {

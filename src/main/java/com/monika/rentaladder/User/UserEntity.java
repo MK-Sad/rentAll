@@ -30,5 +30,19 @@ public class UserEntity {
         this.name = name;
     }
 
+    public List<ItemEntity> getItems() {
+        return items;
+    }
 
+    public void setItems(List<ItemEntity> items) {
+        this.items = items;
+    }
+
+    public List<RentalEntity> getRentals() {
+        return rentals;
+    }
+
+    public void setRentals(List<RentalEntity> rentals) {
+        this.rentals = rentals;
+    }
 }

@@ -1,6 +1,5 @@
 package com.monika.rentaladder.Rental;
 
-import com.monika.rentaladder.Item.ItemEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,8 +17,8 @@ public class RentalController {
     }
 
     @PostMapping("/returnItem")
-    public Boolean returnItem(ItemEntity item) {
-        return rentalFacade.returnItem(item);
+    public Boolean returnItem(Long itemId) {
+        return rentalFacade.returnItem(itemId);
     }
 
 

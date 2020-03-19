@@ -20,6 +20,8 @@ public class UserEntity {
     @OneToMany
     private List<RentalEntity> rentals;
 
+    public UserEntity() {};
+
     public String getName() {
         return name;
     }

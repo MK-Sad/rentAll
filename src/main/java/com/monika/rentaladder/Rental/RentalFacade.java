@@ -1,18 +1,15 @@
 package com.monika.rentaladder.Rental;
 
-import com.monika.rentaladder.Item.ItemEntity;
-import com.monika.rentaladder.Item.ItemFacade;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
 import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
 
-
 public class RentalFacade {
 
     private RentalRepository rentalRepository;
-    private ItemFacade itemFacade;
 
     public RentalFacade(RentalRepository rentalRepository) {
         this.rentalRepository = rentalRepository;
@@ -22,9 +19,9 @@ public class RentalFacade {
         rentalRepository.save(rental);
     }
 
-    public Boolean returnItem(ItemEntity item) {
+    public Boolean returnItem(Long itemId) {
         //String userName = userGetter.getSignedInUserNameOrAnonymous();
-        RentalEntity rentalEntity = rentalRepository.findByItemAndReturnDate(item, null);
+        RentalEntity rentalEntity = rentalRepository.findByItemIdAndReturnDate(itemId, null);
         if(rentalEntity==null){
             throw new IllegalArgumentException("You did not rent this item");
         }
@@ -38,8 +35,8 @@ public class RentalFacade {
         //int realDays = calculateRentalDays(itemEntity.getRentDate(), returnDate);
     }
 
-    public Boolean isItemRented(ItemEntity item){
-        RentalEntity rentalEntity = rentalRepository.findByItemAndReturnDate(item, null);
+    public Boolean isItemRented(Long itemId){
+        RentalEntity rentalEntity = rentalRepository.findByItemIdAndReturnDate(itemId, null);
         if (rentalEntity==null){
             return false;
         }

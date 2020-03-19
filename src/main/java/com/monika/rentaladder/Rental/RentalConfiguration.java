@@ -12,8 +12,6 @@ public class RentalConfiguration {
 
     @Bean
     RentalFacade rentalFacade(RentalRepository rentalRepository){
-        return new RentalFacade(rentalRepository){
-        };
-
+        return new RentalFacade(rentalRepository);
     }
 }

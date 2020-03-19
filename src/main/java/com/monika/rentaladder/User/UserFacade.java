@@ -1,10 +1,5 @@
 package com.monika.rentaladder.User;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.Collections;
-import java.util.List;
-
 public class UserFacade {
 
     private UserRepository userRepository;

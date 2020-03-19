@@ -1,11 +1,6 @@
 package com.monika.rentaladder.Rental;
 
-import com.monika.rentaladder.Item.ItemEntity;
-import com.monika.rentaladder.User.UserEntity;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-
-import javax.validation.constraints.AssertTrue;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,48 +12,38 @@ class RentalFacadeTest {
     void rentItemTest() {
 
         //what you have
-        UserEntity testUserEntity = new UserEntity();
-        testUserEntity.setName("Monika");
-
-        ItemEntity testItemEntity = new ItemEntity();
-        testItemEntity.setId(9L);
-
+        Long testItemId = 9L;
         RentalEntity testRentalEntity = new RentalEntity();
         testRentalEntity.setId(2L);
-        testRentalEntity.setItem(testItemEntity);
-        testRentalEntity.setUser(testUserEntity);
+        testRentalEntity.setItemId(testItemId);
+        testRentalEntity.setUserName("Monika");
 
 
         //than what do you do with what you have
         rentalFacade.rentItem(testRentalEntity);
 
         //check result (is rented)
-        assertTrue(rentalFacade.isItemRented(testItemEntity));
+        assertTrue(rentalFacade.isItemRented(testItemId));
     }
 
     @Test
     void returnItemTest() {
 
         //what you have
-        UserEntity testUserEntity = new UserEntity();
-        testUserEntity.setName("Monika");
-
-        ItemEntity testItemEntity = new ItemEntity();
-        testItemEntity.setId(9L);
-
+        Long testItemId = 9L;
         RentalEntity testRentalEntity = new RentalEntity();
         testRentalEntity.setId(2L);
-        testRentalEntity.setItem(testItemEntity);
-        testRentalEntity.setUser(testUserEntity);
+        testRentalEntity.setItemId(testItemId);
+        testRentalEntity.setUserName("Monika");
 
 
         rentalFacade.rentItem(testRentalEntity);
 
         //when
-        Boolean result = rentalFacade.returnItem(testItemEntity);
+        Boolean result = rentalFacade.returnItem(testItemId);
 
         //then
         assertTrue(result);
-        assertFalse(rentalFacade.isItemRented(testItemEntity));
+        assertFalse(rentalFacade.isItemRented(testItemId));
     }
 }

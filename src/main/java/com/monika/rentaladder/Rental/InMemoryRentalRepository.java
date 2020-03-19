@@ -1,6 +1,5 @@
 package com.monika.rentaladder.Rental;
 
-import com.monika.rentaladder.Item.ItemEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -8,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 import java.time.Instant;
 import java.util.*;
 
-public class InMemoryRentalRepository implements RentalRepository{
+public class InMemoryRentalRepository implements RentalRepository {
 
     private Map<Long,RentalEntity> map = new HashMap();
 
@@ -19,16 +18,16 @@ public class InMemoryRentalRepository implements RentalRepository{
     }
 
     @Override
-    public RentalEntity findByItemAndReturnDate(ItemEntity itemEntity, Instant returnDate){
+    public RentalEntity findByItemIdAndReturnDate(Long itemId, Instant returnDate){
         return map.entrySet().stream()
                 .map(map -> map.getValue())
-                .filter(v -> v.getItem().equals(itemEntity))
+                .filter(v -> v.getItemId().equals(itemId))
                 .filter( (returnDate != null) ? (v -> returnDate.equals(v.getReturnDate())) : (v -> v.getReturnDate() == null) )
                 .findAny()
                 .orElse(null);
     }
 
-
+    @Override
     public Page<RentalEntity> findAll(Pageable pageable) {
         return new PageImpl<>(new ArrayList<>(map.values()), pageable, map.size());
     }

@@ -1,25 +1,21 @@
 package com.monika.rentaladder.Rental;
 
-import com.monika.rentaladder.Item.ItemEntity;
-import com.monika.rentaladder.User.UserEntity;
-import org.springframework.data.annotation.Id;
-
+import javax.persistence.Id;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import java.time.Instant;
 
 @Entity
 public class RentalEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
-    private UserEntity user;
+    private String userName;
 
-    @ManyToOne
-    private ItemEntity item;
+    private Long itemId;
 
     private Instant rentalDate;
 
@@ -27,6 +23,7 @@ public class RentalEntity {
 
     private Integer rentalPeriod;
 
+    public RentalEntity() {};
 
     public Long getId() {
         return id;
@@ -36,20 +33,20 @@ public class RentalEntity {
         this.id = id;
     }
 
-    public UserEntity getUser() {
-        return user;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser(UserEntity user) {
-        this.user = user;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public ItemEntity getItem() {
-        return item;
+    public Long getItemId() {
+        return itemId;
     }
 
-    public void setItem(ItemEntity item) {
-        this.item = item;
+    public void setItemId(Long itemId) {
+        this.itemId = itemId;
     }
 
     public Instant getRentalDate() {

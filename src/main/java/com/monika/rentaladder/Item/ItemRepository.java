@@ -12,7 +12,9 @@ interface ItemRepository extends Repository<ItemEntity, Long> {
 
     ItemEntity findById(Long id);
 
-    List<ItemEntity> findByCategory(ItemCategory itemCategory);
+    List<ItemEntity> findByCategoryAndAvailable(ItemCategory itemCategory, boolean isAvailable);
+
+    List<ItemEntity> findByUserName(String userName);
 
     Page<ItemEntity> findAll(Pageable pageable);
 

@@ -27,7 +27,12 @@ public class ItemController {
 
     @GetMapping("item/{category}")
     List<ItemEntity> getItemByCategory(@PathVariable ItemCategory category) {
-        return itemFacade.getItemByCategory(category);
+        return itemFacade.getItemByCategoryAndAvailable(category);
+    }
+
+    @GetMapping("item/{owner}")
+    List<ItemEntity> getItemByOwner(@PathVariable String ownerName) {
+        return itemFacade.getItemByOwner(ownerName);
     }
 
     @PostMapping("/item")

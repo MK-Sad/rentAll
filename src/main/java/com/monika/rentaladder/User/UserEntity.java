@@ -14,12 +14,6 @@ public class UserEntity {
     @Id
     private String name;
 
-    @OneToMany
-    private List<ItemEntity> items;
-
-    @OneToMany
-    private List<RentalEntity> rentals;
-
     public UserEntity() {};
 
     public String getName() {
@@ -30,19 +24,4 @@ public class UserEntity {
         this.name = name;
     }
 
-    public List<ItemEntity> getItems() {
-        return items;
-    }
-
-    public void setItems(List<ItemEntity> items) {
-        this.items = items;
-    }
-
-    public List<RentalEntity> getRentals() {
-        return rentals;
-    }
-
-    public void setRentals(List<RentalEntity> rentals) {
-        this.rentals = rentals;
-    }
 }

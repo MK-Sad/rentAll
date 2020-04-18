@@ -1,15 +1,20 @@
 package com.monika.rentaladder.Rental;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Collections;
+import java.util.List;
 
 public class RentalFacade {
 
     private RentalRepository rentalRepository;
+
+    private ApplicationEventPublisher publisher;
 
     public RentalFacade(RentalRepository rentalRepository) {
         this.rentalRepository = rentalRepository;
@@ -29,6 +34,7 @@ public class RentalFacade {
         Instant returnDate = clock.instant();
         rentalEntity.setReturnDate(returnDate);
         if (rentalRepository.save(rentalEntity) != null) {
+           // publisher.publishEvent(itemId);
             return true;
         }
         return false;
@@ -41,7 +47,15 @@ public class RentalFacade {
             return false;
         }
         return true;
+    }
+
+    public List<RentalEntity> getCurrentRentalsByUser(String userName){
+        List<RentalEntity> rentalsList = rentalRepository.findByUserNameAndReturnDate(userName, null);
+        if (rentalsList == null){
+            return Collections.emptyList();
         }
+        return rentalsList;
+    }
 
     private int calculateRentalDays(Instant rentalDate, Instant returnDate)
     {

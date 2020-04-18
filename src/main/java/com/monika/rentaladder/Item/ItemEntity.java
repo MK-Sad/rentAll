@@ -16,9 +16,13 @@ public class ItemEntity {
 
     private ItemCategory category;
 
-    private String userName;
+    private String owner;
 
     private String description;
+
+    private boolean available;
+
+    private boolean rented;
 
     public ItemEntity() {};
 
@@ -46,12 +50,12 @@ public class ItemEntity {
         this.category = category;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getOwner() {
+        return owner;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
     public String getDescription() {
@@ -60,6 +64,22 @@ public class ItemEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
+    public boolean isRented() {
+        return rented;
+    }
+
+    public void setRented(boolean rented) {
+        this.rented = rented;
     }
 
 }

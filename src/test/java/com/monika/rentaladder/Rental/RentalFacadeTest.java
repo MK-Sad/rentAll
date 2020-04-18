@@ -2,6 +2,8 @@ package com.monika.rentaladder.Rental;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class RentalFacadeTest {
@@ -45,5 +47,24 @@ class RentalFacadeTest {
         //then
         assertTrue(result);
         assertFalse(rentalFacade.isItemRented(testItemId));
+    }
+
+    @Test
+    void rentItemAndListRentedTest() {
+
+        //what you have
+        Long testItemId = 9L;
+        RentalEntity testRentalEntity = new RentalEntity();
+        testRentalEntity.setId(2L);
+        testRentalEntity.setItemId(testItemId);
+        testRentalEntity.setUserName("Monika");
+
+
+        //than what do you do with what you have
+        rentalFacade.rentItem(testRentalEntity);
+        List<RentalEntity> rentedList = rentalFacade.getCurrentRentalsByUser("Monika");
+
+        //check result (is rented)
+        assertEquals(testRentalEntity,rentedList.get(0));
     }
 }

@@ -15,9 +15,8 @@ public class ItemFacade {
         this.itemRepository = itemRepository;
     }
 
-    public void addItem(ItemEntity item){
-        itemRepository.save(item);
-
+    public ItemEntity addItem(ItemEntity item){
+        return itemRepository.save(item);
     }
 
     public ItemEntity getItemById(Long id){
@@ -29,8 +28,8 @@ public class ItemFacade {
         return itemRepository.findByCategoryAndAvailable(category, true);
     }
 
-    public List<ItemEntity> getItemByOwner(String userName) {
-        return itemRepository.findByUserName(userName);
+    public List<ItemEntity> getItemByOwner(String owner) {
+        return itemRepository.findByOwner(owner);
     }
 
     public Page<ItemEntity> getAllItems(Pageable pageable) {

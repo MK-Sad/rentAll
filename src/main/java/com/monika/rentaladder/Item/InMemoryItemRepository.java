@@ -36,10 +36,10 @@ public class InMemoryItemRepository implements ItemRepository {
     }
 
     @Override
-    public List<ItemEntity> findByUserName(String userName) {
+    public List<ItemEntity> findByOwner(String owner) {
         List<ItemEntity> result = new ArrayList<>();
         map.forEach((k,v) -> {
-            if (v.getOwner().equals(userName)) {
+            if (v.getOwner().equals(owner)) {
                 result.add(v);
             }
         });

@@ -14,7 +14,7 @@ interface ItemRepository extends Repository<ItemEntity, Long> {
 
     List<ItemEntity> findByCategoryAndAvailable(ItemCategory itemCategory, boolean isAvailable);
 
-    List<ItemEntity> findByUserName(String userName);
+    List<ItemEntity> findByOwner(String owner);
 
     Page<ItemEntity> findAll(Pageable pageable);
 

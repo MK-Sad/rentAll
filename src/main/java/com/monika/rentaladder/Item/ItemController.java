@@ -25,19 +25,19 @@ public class ItemController {
         return itemFacade.getItemById(id);
     }
 
-    @GetMapping("item/{category}")
+    @GetMapping("item/category/{category}")
     List<ItemEntity> getItemByCategory(@PathVariable ItemCategory category) {
         return itemFacade.getItemByCategoryAndAvailable(category);
     }
 
-    @GetMapping("item/{owner}")
-    List<ItemEntity> getItemByOwner(@PathVariable String ownerName) {
-        return itemFacade.getItemByOwner(ownerName);
+    @GetMapping("item/owner/{owner}")
+    List<ItemEntity> getItemByOwner(@PathVariable String owner) {
+        return itemFacade.getItemByOwner(owner);
     }
 
     @PostMapping("/item")
-    void addItem(@RequestBody ItemEntity itemEntity) {
-        itemFacade.addItem(itemEntity);
+    ItemEntity addItem(@RequestBody ItemEntity itemEntity) {
+        return itemFacade.addItem(itemEntity);
     }
 
 }

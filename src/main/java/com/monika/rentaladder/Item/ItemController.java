@@ -15,6 +15,12 @@ public class ItemController {
         this.itemFacade = itemFacade;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+    @GetMapping("categories")
+    List<ItemCategory> getCategories() {
+        return itemFacade.getCategories();
+    }
+
     @GetMapping("items")
     Page<ItemEntity> getAllItems(Pageable pageable) {
         return itemFacade.getAllItems(pageable);

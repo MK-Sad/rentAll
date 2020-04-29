@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class ItemFacade {
@@ -34,6 +35,10 @@ public class ItemFacade {
 
     public Page<ItemEntity> getAllItems(Pageable pageable) {
         return itemRepository.findAll(pageable);
+    }
+
+    public List<ItemCategory> getCategories(){
+        return Arrays.asList(ItemCategory.values());
     }
 
     @EventListener

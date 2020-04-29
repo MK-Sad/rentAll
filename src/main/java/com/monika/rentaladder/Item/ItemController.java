@@ -25,6 +25,7 @@ public class ItemController {
         return itemFacade.getItemById(id);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
     @GetMapping("item/category/{category}")
     List<ItemEntity> getItemByCategory(@PathVariable ItemCategory category) {
         return itemFacade.getItemByCategoryAndAvailable(category);

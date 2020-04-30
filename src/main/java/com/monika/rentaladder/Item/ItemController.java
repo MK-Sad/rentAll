@@ -41,6 +41,11 @@ public class ItemController {
         return itemFacade.getItemByOwner(owner);
     }
 
+    @PutMapping("/item")
+    ItemEntity getItemById(@RequestBody ItemEntity itemEntity) {
+        return itemFacade.changeItem(itemEntity);
+    }
+
     @PostMapping("/item")
     ItemEntity addItem(@RequestBody ItemEntity itemEntity) {
         return itemFacade.addItem(itemEntity);

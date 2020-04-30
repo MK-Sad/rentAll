@@ -20,8 +20,10 @@ public class RentalFacade {
         this.rentalRepository = rentalRepository;
     }
 
-    public void rentItem(RentalEntity rental) {
-        rentalRepository.save(rental);
+    public RentalEntity rentItem(RentalEntity rental) {
+        Clock clock = Clock.systemUTC();
+        rental.setRentalDate(clock.instant());
+        return rentalRepository.save(rental);
     }
 
     public Boolean returnItem(Long itemId) {

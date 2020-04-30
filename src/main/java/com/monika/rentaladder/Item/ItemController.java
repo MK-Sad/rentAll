@@ -26,6 +26,7 @@ public class ItemController {
         return itemFacade.getAllItems(pageable);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
     @GetMapping("item/{id}")
     ItemEntity getItemById(@PathVariable Long id) {
         return itemFacade.getItemById(id);
@@ -37,11 +38,13 @@ public class ItemController {
         return itemFacade.getItemByCategoryAndAvailable(category);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
     @GetMapping("item/owner/{owner}")
     List<ItemEntity> getItemByOwner(@PathVariable String owner) {
         return itemFacade.getItemByOwner(owner);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
     @PostMapping("/item")
     ItemEntity addItem(@RequestBody ItemEntity itemEntity) {
         return itemFacade.addItem(itemEntity);

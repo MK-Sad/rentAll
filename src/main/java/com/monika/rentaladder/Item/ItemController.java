@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 public class ItemController {
 
@@ -15,7 +16,6 @@ public class ItemController {
         this.itemFacade = itemFacade;
     }
 
-    @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
     @GetMapping("categories")
     List<ItemCategory> getCategories() {
         return itemFacade.getCategories();
@@ -26,25 +26,21 @@ public class ItemController {
         return itemFacade.getAllItems(pageable);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
     @GetMapping("item/{id}")
     ItemEntity getItemById(@PathVariable Long id) {
         return itemFacade.getItemById(id);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
     @GetMapping("item/category/{category}")
     List<ItemEntity> getItemByCategory(@PathVariable ItemCategory category) {
         return itemFacade.getItemByCategoryAndAvailable(category);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
     @GetMapping("item/owner/{owner}")
     List<ItemEntity> getItemByOwner(@PathVariable String owner) {
         return itemFacade.getItemByOwner(owner);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
     @PostMapping("/item")
     ItemEntity addItem(@RequestBody ItemEntity itemEntity) {
         return itemFacade.addItem(itemEntity);

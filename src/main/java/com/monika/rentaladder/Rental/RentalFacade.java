@@ -37,6 +37,7 @@ public class RentalFacade {
         rentalEntity.setReturnDate(returnDate);
         if (rentalRepository.save(rentalEntity) != null) {
            // publisher.publishEvent(itemId);
+
             return true;
         }
         return false;

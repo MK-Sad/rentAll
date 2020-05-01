@@ -1,6 +1,7 @@
 package com.monika.rentaladder.Rental;
 
-import org.springframework.context.ApplicationEventPublisher;
+import com.monika.rentaladder.Item.ItemEntity;
+import com.monika.rentaladder.Item.ItemRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,19 +15,23 @@ public class RentalFacade {
 
     private RentalRepository rentalRepository;
 
-    private ApplicationEventPublisher publisher;
+    private ItemRepository itemRepository;
 
-    public RentalFacade(RentalRepository rentalRepository) {
+    public RentalFacade(RentalRepository rentalRepository, ItemRepository itemRepository) {
         this.rentalRepository = rentalRepository;
+        this.itemRepository = itemRepository;
     }
 
     public RentalEntity rentItem(RentalEntity rental) {
         Clock clock = Clock.systemUTC();
         rental.setRentalDate(clock.instant());
+        ItemEntity item = itemRepository.findById(rental.getItemId());
+        item.setRented(true);
+        itemRepository.save(item);
         return rentalRepository.save(rental);
     }
 
-    public Boolean returnItem(Long itemId) {
+    public RentalEntity returnItem(Long itemId) {
         //String userName = userGetter.getSignedInUserNameOrAnonymous();
         RentalEntity rentalEntity = rentalRepository.findByItemIdAndReturnDate(itemId, null);
         if(rentalEntity==null){
@@ -36,14 +41,15 @@ public class RentalFacade {
         Instant returnDate = clock.instant();
         rentalEntity.setReturnDate(returnDate);
         if (rentalRepository.save(rentalEntity) != null) {
-           // publisher.publishEvent(itemId);
-
-            return true;
+            ItemEntity item = itemRepository.findById(itemId);
+            item.setRented(false);
+            itemRepository.save(item);
         }
-        return false;
+        return rentalEntity;
         //int realDays = calculateRentalDays(itemEntity.getRentDate(), returnDate);
     }
 
+    //Not used
     public Boolean isItemRented(Long itemId){
         RentalEntity rentalEntity = rentalRepository.findByItemIdAndReturnDate(itemId, null);
         if (rentalEntity==null){

@@ -6,7 +6,7 @@ import org.springframework.data.repository.Repository;
 
 import java.util.List;
 
-interface ItemRepository extends Repository<ItemEntity, Long> {
+public interface ItemRepository extends Repository<ItemEntity, Long> {
 
     ItemEntity save(ItemEntity itemEntity);
 

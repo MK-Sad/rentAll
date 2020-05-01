@@ -19,8 +19,8 @@ public class RentalController {
         return rentalFacade.rentItem(rental);
     }
 
-    @PostMapping("/returnItem/{iitemId}")
-    public Boolean returnItem(@PathVariable Long itemId) {
+    @PutMapping("/returnItem/{itemId}")
+    public RentalEntity returnItem(@PathVariable Long itemId) {
         return rentalFacade.returnItem(itemId);
     }
 

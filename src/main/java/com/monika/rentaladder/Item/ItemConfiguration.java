@@ -14,4 +14,5 @@ public class ItemConfiguration {
     ItemFacade itemFacade(ItemRepository itemRepository) {
         return new ItemFacade(itemRepository);
     }
+
 }

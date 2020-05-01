@@ -23,6 +23,5 @@ public class UserController {
     @PostMapping("/user")
     public void addUser(@RequestBody UserEntity user) {
         userFacade.addUser(user);
-
     }
 }

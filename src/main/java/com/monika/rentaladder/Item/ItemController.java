@@ -33,7 +33,7 @@ public class ItemController {
 
     @GetMapping("item/category/{category}")
     List<ItemEntity> getItemByCategory(@PathVariable ItemCategory category) {
-        return itemFacade.getItemByCategoryAndAvailable(category);
+        return itemFacade.getItemByCategoryAndAvailableAndNotRented(category);
     }
 
     @GetMapping("item/owner/{owner}")

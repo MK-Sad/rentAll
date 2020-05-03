@@ -26,8 +26,8 @@ public class ItemFacade {
         return itemRepository.save(item);
     }
 
-    public List<ItemEntity> getItemByCategoryAndAvailable(ItemCategory category) {
-        return itemRepository.findByCategoryAndAvailable(category, true);
+    public List<ItemEntity> getItemByCategoryAndAvailableAndNotRented(ItemCategory category) {
+        return itemRepository.findByCategoryAndAvailableAndRented(category, true, false);
     }
 
     public List<ItemEntity> getItemByOwner(String owner) {

@@ -12,7 +12,7 @@ public interface ItemRepository extends Repository<ItemEntity, Long> {
 
     ItemEntity findById(Long id);
 
-    List<ItemEntity> findByCategoryAndAvailable(ItemCategory itemCategory, boolean isAvailable);
+    List<ItemEntity> findByCategoryAndAvailableAndRented(ItemCategory itemCategory, boolean available, boolean rented);
 
     List<ItemEntity> findByOwner(String owner);
 

@@ -21,7 +21,7 @@ class ItemFacadeTest {
 
         //when
         itemFacade.addItem(testItemEntity);
-        List<ItemEntity> result = itemFacade.getItemByCategoryAndAvailable(testCategory);
+        List<ItemEntity> result = itemFacade.getItemByCategoryAndAvailableAndNotRented(testCategory);
 
         //then
         assertEquals(1, result.size());

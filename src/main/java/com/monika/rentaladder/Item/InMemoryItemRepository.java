@@ -25,7 +25,7 @@ public class InMemoryItemRepository implements ItemRepository {
     }
 
     @Override
-    public List<ItemEntity> findByCategoryAndAvailable(ItemCategory itemCategory, boolean isAvailable) {
+    public List<ItemEntity> findByCategoryAndAvailableAndRented(ItemCategory itemCategory, boolean available, boolean rented) {
         List<ItemEntity> result = new ArrayList<>();
         map.forEach((k,v) -> {
             if (v.getCategory().equals(itemCategory)) {

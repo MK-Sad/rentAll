@@ -25,10 +25,21 @@ public class InMemoryItemRepository implements ItemRepository {
     }
 
     @Override
-    public List<ItemEntity> findByCategory(ItemCategory itemCategory) {
+    public List<ItemEntity> findByCategoryAndAvailableAndRented(ItemCategory itemCategory, boolean available, boolean rented) {
         List<ItemEntity> result = new ArrayList<>();
         map.forEach((k,v) -> {
             if (v.getCategory().equals(itemCategory)) {
+                result.add(v);
+            }
+        });
+        return result;
+    }
+
+    @Override
+    public List<ItemEntity> findByOwner(String owner) {
+        List<ItemEntity> result = new ArrayList<>();
+        map.forEach((k,v) -> {
+            if (v.getOwner().equals(owner)) {
                 result.add(v);
             }
         });

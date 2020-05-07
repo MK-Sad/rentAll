@@ -1,8 +1,10 @@
 package com.monika.rentaladder.Rental;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 public class RentalController {
 
@@ -12,15 +14,19 @@ public class RentalController {
         this.rentalFacade = rentalFacade;
     }
 
-    public void rentItem(RentalEntity rental) {
-        rentalFacade.rentItem(rental);
+    @PostMapping("/rentItem")
+    public RentalEntity rentItem(@RequestBody RentalEntity rental) {
+        return rentalFacade.rentItem(rental);
     }
 
-    @PostMapping("/returnItem")
-    public Boolean returnItem(Long itemId) {
+    @PutMapping("/returnItem/{itemId}")
+    public RentalEntity returnItem(@PathVariable Long itemId) {
         return rentalFacade.returnItem(itemId);
     }
 
-
+    @GetMapping("/rentalsByUser/{userName}")
+    public List<RentalEntity> getRentalsByUser(@PathVariable String userName) {
+        return rentalFacade.getCurrentRentalsByUser(userName);
+    }
 
 }

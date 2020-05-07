@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 public class ItemController {
 
@@ -13,6 +14,11 @@ public class ItemController {
 
     public ItemController(ItemFacade itemFacade) {
         this.itemFacade = itemFacade;
+    }
+
+    @GetMapping("categories")
+    List<ItemCategory> getCategories() {
+        return itemFacade.getCategories();
     }
 
     @GetMapping("items")
@@ -25,14 +31,24 @@ public class ItemController {
         return itemFacade.getItemById(id);
     }
 
-    @GetMapping("item/{category}")
+    @GetMapping("item/category/{category}")
     List<ItemEntity> getItemByCategory(@PathVariable ItemCategory category) {
-        return itemFacade.getItemByCategory(category);
+        return itemFacade.getItemByCategoryAndAvailableAndNotRented(category);
+    }
+
+    @GetMapping("item/owner/{owner}")
+    List<ItemEntity> getItemByOwner(@PathVariable String owner) {
+        return itemFacade.getItemByOwner(owner);
+    }
+
+    @PutMapping("/item")
+    ItemEntity getItemById(@RequestBody ItemEntity itemEntity) {
+        return itemFacade.changeItem(itemEntity);
     }
 
     @PostMapping("/item")
-    void addItem(@RequestBody ItemEntity itemEntity) {
-        itemFacade.addItem(itemEntity);
+    ItemEntity addItem(@RequestBody ItemEntity itemEntity) {
+        return itemFacade.addItem(itemEntity);
     }
 
 }

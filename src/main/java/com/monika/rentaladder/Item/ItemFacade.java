@@ -3,6 +3,7 @@ package com.monika.rentaladder.Item;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class ItemFacade {
@@ -13,21 +14,31 @@ public class ItemFacade {
         this.itemRepository = itemRepository;
     }
 
-    public void addItem(ItemEntity item){
-        itemRepository.save(item);
-
+    public ItemEntity addItem(ItemEntity item){
+        return itemRepository.save(item);
     }
+
     public ItemEntity getItemById(Long id){
         return itemRepository.findById(id);
-
     }
-    public List<ItemEntity> getItemByCategory(ItemCategory category) {
-        // todo dodac weryf isAval...
-        return itemRepository.findByCategory(category);
+
+    public ItemEntity changeItem(ItemEntity item){
+        return itemRepository.save(item);
+    }
+
+    public List<ItemEntity> getItemByCategoryAndAvailableAndNotRented(ItemCategory category) {
+        return itemRepository.findByCategoryAndAvailableAndRented(category, true, false);
+    }
+
+    public List<ItemEntity> getItemByOwner(String owner) {
+        return itemRepository.findByOwner(owner);
     }
 
     public Page<ItemEntity> getAllItems(Pageable pageable) {
-        // todo dodac weryf isAval...
         return itemRepository.findAll(pageable);
+    }
+
+    public List<ItemCategory> getCategories(){
+        return Arrays.asList(ItemCategory.values());
     }
 }

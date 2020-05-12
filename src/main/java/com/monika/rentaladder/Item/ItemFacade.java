@@ -38,6 +38,10 @@ public class ItemFacade {
         return itemRepository.findAll(pageable);
     }
 
+    public List<ItemEntity> getAllItemsByNameContaining(String namePart) {
+        return itemRepository.findAllByNameContaining(namePart);
+    }
+
     public List<ItemCategory> getCategories(){
         return Arrays.asList(ItemCategory.values());
     }

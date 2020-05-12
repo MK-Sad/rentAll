@@ -51,4 +51,15 @@ public class InMemoryItemRepository implements ItemRepository {
         return new PageImpl<>(new ArrayList<>(map.values()), pageable, map.size());
     }
 
+    @Override
+    public List<ItemEntity> findAllByNameContaining(String name) {
+        List<ItemEntity> result = new ArrayList<>();
+        map.forEach((k,v) -> {
+            if (v.getOwner().equals(name)) {
+                result.add(v);
+            }
+        });
+        return result;
+    }
+
 }

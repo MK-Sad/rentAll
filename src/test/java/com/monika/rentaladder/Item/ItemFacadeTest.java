@@ -11,7 +11,7 @@ class ItemFacadeTest {
     private ItemFacade itemFacade = new ItemConfiguration().itemFacade();
 
     @Test
-    void testAddItemAndGetItemByCategory() {
+    void testAddItemAndGetItemByCategoryAndAvailableAndNotRented() {
 
         //given
         ItemCategory testCategory = ItemCategory.TOYS;

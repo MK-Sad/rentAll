@@ -36,6 +36,11 @@ public class ItemController {
         return itemFacade.getItemByCategoryAndAvailableAndNotRented(category);
     }
 
+    @GetMapping("item/namePart/{namePart}")
+    List<ItemEntity> getAllItemsByNamePart(@PathVariable String namePart) {
+        return itemFacade.getAllItemsByNameContaining(namePart);
+    }
+
     @GetMapping("item/owner/{owner}")
     List<ItemEntity> getItemByOwner(@PathVariable String owner) {
         return itemFacade.getItemByOwner(owner);

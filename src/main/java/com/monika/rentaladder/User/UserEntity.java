@@ -1,42 +1,48 @@
 package com.monika.rentaladder.User;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class UserEntity {
 
-    @Id
-    private String name;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long id;
 
-    private String pass;
+  private String name;
 
-    private String eMail;
+  private String pass;
 
-    public UserEntity() {};
+  private String eMail;
 
-    public String getName() {
-        return name;
-    }
+  public UserEntity() {
+  };
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public String getPass() {
-        return pass;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
+  public String getPass() {
+    return pass;
+  }
 
-    public String geteMail() {
-        return eMail;
-    }
+  public void setPass(String pass) {
+    this.pass = pass;
+  }
 
-    public void seteMail(String eMail) {
-        this.eMail = eMail;
-    }
+  public String geteMail() {
+    return eMail;
+  }
+
+  public void seteMail(String eMail) {
+    this.eMail = eMail;
+  }
 
 }

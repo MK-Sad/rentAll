@@ -9,9 +9,11 @@ public class UserEntity {
     @Id
     private String name;
 
-    private String pass;
+    private String password;
 
     private String eMail;
+
+    private String phoneNumber;
 
     public UserEntity() {};
 
@@ -23,12 +25,12 @@ public class UserEntity {
         this.name = name;
     }
 
-    public String getPass() {
-        return pass;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass;
+    public void setPassword(String pass) {
+        this.password = pass;
     }
 
     public String geteMail() {
@@ -37,6 +39,14 @@ public class UserEntity {
 
     public void seteMail(String eMail) {
         this.eMail = eMail;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
 }

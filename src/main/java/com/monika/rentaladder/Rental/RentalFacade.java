@@ -26,6 +26,10 @@ public class RentalFacade {
         Clock clock = Clock.systemUTC();
         rental.setRentalDate(clock.instant());
         ItemEntity item = itemRepository.findById(rental.getItemId());
+        RentalEntity rentalEntity = rentalRepository.findByItemIdAndReturnDate(rental.getItemId(), null);
+        if((rentalEntity!=null)||(item.isRented())){
+            throw new IllegalArgumentException("Item is already rented");
+        }
         item.setRented(true);
         itemRepository.save(item);
         return rentalRepository.save(rental);

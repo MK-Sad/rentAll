@@ -2,18 +2,37 @@ package com.monika.rentaladder.User;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.context.annotation.Profile;
+import org.springframework.core.env.Profiles;
+import org.springframework.core.task.TaskExecutor;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 @Configuration
 public class UserConfiguration {
 
     UserFacade userFacade(){
-        return new UserFacade(new InMemoryUserRepository(),
-                new MailService(new JavaMailSenderImpl()));
+        return new UserFacade(new InMemoryUserRepository());
     }
 
     @Bean
-    UserFacade userFacade(UserRepository userRepository, MailService mailService){
-        return new UserFacade(userRepository, mailService);
+    UserFacade userFacade(UserRepository userRepository){
+        return new UserFacade(userRepository);
     }
+
+    @Bean
+    //@Profile("!" + Profiles.TEST)
+    TaskExecutor sendingEmailTaskExecutor() {
+        ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
+        threadPoolTaskScheduler.setThreadGroupName("sendingEmailTaskExecutor");
+        threadPoolTaskScheduler.setPoolSize(20);
+        return threadPoolTaskScheduler;
+    }
+
+    //TODO for tests
+    //@Bean(name="sendingEmailTaskExecutor")
+    //@Profile(Profiles.TEST)
+    //TaskExecutor singleThreadBonusPointsTaskExecutor() {
+        //return (Runnable task) -> task.run();
+    //}
+
 }

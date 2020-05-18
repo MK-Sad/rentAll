@@ -1,16 +1,11 @@
 package com.monika.rentaladder.User;
 
-import javax.mail.MessagingException;
-
 public class UserFacade {
 
     private UserRepository userRepository;
 
-    private MailService mailService;
-
-    public UserFacade(UserRepository userRepository, MailService mailService){
+    public UserFacade(UserRepository userRepository){
         this.userRepository = userRepository;
-        this.mailService = mailService;
     }
 
     public UserEntity addUser(UserEntity user){
@@ -27,13 +22,6 @@ public class UserFacade {
             throw new Exception("Wrong name or password");
         }
         return user.noPassword();
-    }
-
-    public String sendMail() throws MessagingException {
-        mailService.sendMail("rob.sadlowski@gmail.com",
-                "RentAll wymiata:-)",
-                "<b>Super feature:-)!</b><br>:P", true);
-        return "E-mail has been sent.";
     }
 
 }

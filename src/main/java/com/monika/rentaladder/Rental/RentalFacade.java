@@ -2,9 +2,13 @@ package com.monika.rentaladder.Rental;
 
 import com.monika.rentaladder.Item.ItemEntity;
 import com.monika.rentaladder.Item.ItemRepository;
+import com.monika.rentaladder.User.MailSender.MailMessage;
+import com.monika.rentaladder.User.MailSender.MailService;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import javax.mail.MessagingException;
 import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
@@ -17,9 +21,12 @@ public class RentalFacade {
 
     private ItemRepository itemRepository;
 
-    public RentalFacade(RentalRepository rentalRepository, ItemRepository itemRepository) {
+    private ApplicationEventPublisher publisher;
+
+    public RentalFacade(RentalRepository rentalRepository, ItemRepository itemRepository, ApplicationEventPublisher publisher) {
         this.rentalRepository = rentalRepository;
         this.itemRepository = itemRepository;
+        this.publisher = publisher;
     }
 
     public RentalEntity rentItem(RentalEntity rental) {
@@ -31,6 +38,8 @@ public class RentalFacade {
             throw new IllegalArgumentException("Item is already rented");
         }
         item.setRented(true);
+        publisher.publishEvent(new MailMessage(MailMessage.Type.REQUEST, item.getOwner(), item.getName(), rental.getUserName(), rental.getId()));
+        publisher.publishEvent(new MailMessage(MailMessage.Type.CONTACT, item.getOwner(), item.getName(), rental.getUserName(), rental.getId()));
         itemRepository.save(item);
         return rentalRepository.save(rental);
     }

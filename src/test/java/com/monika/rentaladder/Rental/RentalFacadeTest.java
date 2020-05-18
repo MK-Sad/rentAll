@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class RentalFacadeTest {
 
     ItemRepository itemRepository = new InMemoryItemRepository();
-    RentalFacade rentalFacade = new RentalConfiguration().rentalFacade(itemRepository);
+    RentalFacade rentalFacade = new RentalConfiguration().rentalFacade(itemRepository, null);
 
     @Test
     void rentItemTest() {

@@ -1,7 +1,8 @@
 package com.monika.rentaladder.Rental;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
@@ -16,7 +17,12 @@ public class RentalController {
 
     @PostMapping("/rentItem")
     public RentalEntity rentItem(@RequestBody RentalEntity rental) {
-        return rentalFacade.rentItem(rental);
+        try {
+            return rentalFacade.rentItem(rental);
+        } catch (Exception e) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Nie odnaleziono zasobu", e);
+        }
     }
 
     @PutMapping("/returnItem/{itemId}")

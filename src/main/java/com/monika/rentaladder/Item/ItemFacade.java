@@ -39,7 +39,7 @@ public class ItemFacade {
     }
 
     public List<ItemEntity> getAllItemsByNameContaining(String namePart) {
-        return itemRepository.findAllByNameContaining(namePart);
+        return itemRepository.findAllByNameContainingAndAvailableAndRented(namePart, true, false);
     }
 
     public List<ItemCategory> getCategories(){

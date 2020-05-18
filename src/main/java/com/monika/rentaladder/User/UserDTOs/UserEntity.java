@@ -1,4 +1,4 @@
-package com.monika.rentaladder.User;
+package com.monika.rentaladder.User.UserDTOs;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,6 +14,8 @@ public class UserEntity {
     private String eMail;
 
     private String phoneNumber;
+
+    private Integer points;
 
     public UserEntity() {};
 
@@ -47,6 +49,14 @@ public class UserEntity {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
     }
 
 }

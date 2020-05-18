@@ -1,5 +1,8 @@
 package com.monika.rentaladder.User;
 
+import com.monika.rentaladder.User.UserDTOs.UserCredentials;
+import com.monika.rentaladder.User.UserDTOs.UserEntity;
+import com.monika.rentaladder.User.UserDTOs.UserPoints;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -21,11 +24,21 @@ public class UserController {
 
     @PostMapping("/user")
     public UserEntity addUser(@RequestBody UserEntity user) {
-        return userFacade.addUser(user);
+        try {
+            return userFacade.addUser(user);
+        } catch (Exception e) {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT, "Name already exist", e);
+        }
+    }
+
+    @PutMapping("/user")
+    UserEntity updateUser(@RequestBody UserEntity userEntity) {
+        return userFacade.updateUser(userEntity);
     }
 
     @PostMapping("/authenticate")
-    public UserDTO authenticateUser (@RequestBody UserDTO user) {
+    public UserPoints authenticateUser (@RequestBody UserCredentials user) {
         try {
             return userFacade.authenticateUser(user);
         } catch (Exception e) {

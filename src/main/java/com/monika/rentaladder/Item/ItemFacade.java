@@ -22,7 +22,7 @@ public class ItemFacade {
         return itemRepository.findById(id);
     }
 
-    public ItemEntity changeItem(ItemEntity item){
+    public ItemEntity updateItem(ItemEntity item){
         return itemRepository.save(item);
     }
 

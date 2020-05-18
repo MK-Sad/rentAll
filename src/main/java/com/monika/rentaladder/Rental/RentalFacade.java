@@ -2,13 +2,11 @@ package com.monika.rentaladder.Rental;
 
 import com.monika.rentaladder.Item.ItemEntity;
 import com.monika.rentaladder.Item.ItemRepository;
-import com.monika.rentaladder.User.MailSender.MailMessage;
-import com.monika.rentaladder.User.MailSender.MailService;
+import com.monika.rentaladder.User.MailSender.RentalEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import javax.mail.MessagingException;
 import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
@@ -38,8 +36,7 @@ public class RentalFacade {
             throw new IllegalArgumentException("Item is already rented");
         }
         item.setRented(true);
-        publisher.publishEvent(new MailMessage(MailMessage.Type.REQUEST, item.getOwner(), item.getName(), rental.getUserName(), rental.getId()));
-        publisher.publishEvent(new MailMessage(MailMessage.Type.CONTACT, item.getOwner(), item.getName(), rental.getUserName(), rental.getId()));
+        publisher.publishEvent(new RentalEvent(RentalEvent.Type.REQUEST, item.getOwner(), item.getName(), rental.getUserName(), rental.getId()));
         itemRepository.save(item);
         return rentalRepository.save(rental);
     }
@@ -53,13 +50,62 @@ public class RentalFacade {
         Clock clock = Clock.systemUTC();
         Instant returnDate = clock.instant();
         rentalEntity.setReturnDate(returnDate);
-        if (rentalRepository.save(rentalEntity) != null) {
-            ItemEntity item = itemRepository.findById(itemId);
+        ItemEntity item = itemRepository.findById(itemId);
+        RentalEntity result = rentalRepository.save(rentalEntity);
+        if (result != null) {
             item.setRented(false);
             itemRepository.save(item);
         }
+        int realDays = calculateRentalDays(result.getConfirmedDate(), returnDate);
+        if (realDays <= rentalEntity.getRentalPeriod()) {
+            publisher.publishEvent(new RentalEvent(RentalEvent.Type.RETURN_IN_TIME, result.getOwnerName(),
+                    item.getName(), result.getUserName(), result.getId()));
+        } else {
+            publisher.publishEvent(new RentalEvent(RentalEvent.Type.RETURN_DELAYED, result.getOwnerName(),
+                    item.getName(), result.getUserName(), result.getId()));
+        }
         return rentalEntity;
-        //int realDays = calculateRentalDays(itemEntity.getRentDate(), returnDate);
+    }
+
+    public RentalEntity confirmRental(Long rentalId) {
+        RentalEntity rental = rentalRepository.findById(rentalId);
+        Clock clock = Clock.systemUTC();
+        Instant confirmedDate = clock.instant();
+        rental.setConfirmedDate(confirmedDate);
+        ItemEntity item = itemRepository.findById(rental.getItemId());
+        publisher.publishEvent(new RentalEvent(RentalEvent.Type.CONTACT, rental.getOwnerName(), item.getName(), rental.getUserName(), rental.getId()));
+        return rentalRepository.save(rental);
+    }
+
+    public RentalEntity denyRental(Long rentalId) {
+        RentalEntity rental = rentalRepository.findById(rentalId);
+        Clock clock = Clock.systemUTC();
+        Instant returnDate = clock.instant();
+        rental.setReturnDate(returnDate);
+        ItemEntity item = itemRepository.findById(rental.getItemId());
+        RentalEntity resultRental = rentalRepository.save(rental);
+        if (resultRental != null) {
+            item.setRented(false);
+            itemRepository.save(item);
+        }
+        publisher.publishEvent(new RentalEvent(RentalEvent.Type.SORRY, rental.getOwnerName(), item.getName(), rental.getUserName(), rental.getId()));
+        return rental;
+    }
+
+    public List<RentalEntity> getCurrentRentalsByUser(String userName){
+        List<RentalEntity> rentalsList = rentalRepository.findByUserNameAndReturnDate(userName, null);
+        if (rentalsList == null){
+            return Collections.emptyList();
+        }
+        return rentalsList;
+    }
+
+    public List<RentalEntity> getCurrentRentalsByOwner(String ownerName){
+        List<RentalEntity> rentalsList = rentalRepository.findByOwnerNameAndReturnDate(ownerName, null);
+        if (rentalsList == null){
+            return Collections.emptyList();
+        }
+        return rentalsList;
     }
 
     //Not used
@@ -69,14 +115,6 @@ public class RentalFacade {
             return false;
         }
         return true;
-    }
-
-    public List<RentalEntity> getCurrentRentalsByUser(String userName){
-        List<RentalEntity> rentalsList = rentalRepository.findByUserNameAndReturnDate(userName, null);
-        if (rentalsList == null){
-            return Collections.emptyList();
-        }
-        return rentalsList;
     }
 
     private int calculateRentalDays(Instant rentalDate, Instant returnDate)

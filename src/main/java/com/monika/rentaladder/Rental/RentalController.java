@@ -30,9 +30,23 @@ public class RentalController {
         return rentalFacade.returnItem(itemId);
     }
 
+    @PutMapping("/confirmRental/{rentalId}")
+    public RentalEntity confirmRental(@PathVariable Long rentalId) {
+        return rentalFacade.confirmRental(rentalId);
+    }
+
+    @PutMapping("/denyRental/{rentalId}")
+    public RentalEntity denyRental(@PathVariable Long rentalId) {
+        return rentalFacade.denyRental(rentalId);
+    }
+
     @GetMapping("/rentalsByUser/{userName}")
     public List<RentalEntity> getRentalsByUser(@PathVariable String userName) {
         return rentalFacade.getCurrentRentalsByUser(userName);
     }
 
+    @GetMapping("/rentalsByOwner/{ownerName}")
+    public List<RentalEntity> getRentalsByOwner(@PathVariable String ownerName) {
+        return rentalFacade.getCurrentRentalsByOwner(ownerName);
+    }
 }

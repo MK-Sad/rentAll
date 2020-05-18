@@ -41,4 +41,19 @@ public class InMemoryRentalRepository implements RentalRepository {
                 .filter( (returnDate != null) ? (v -> returnDate.equals(v.getReturnDate())) : (v -> v.getReturnDate() == null) )
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<RentalEntity> findByOwnerNameAndReturnDate(String ownerName, Instant returnDate) {
+        return map.entrySet().stream()
+                .map(map -> map.getValue())
+                .filter(v -> v.getUserName().equals(ownerName))
+                .filter( (returnDate != null) ? (v -> returnDate.equals(v.getReturnDate())) : (v -> v.getReturnDate() == null) )
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public RentalEntity findById(Long itemId) {
+        return map.get(itemId);
+    }
+
 }

@@ -47,8 +47,8 @@ public class ItemController {
     }
 
     @PutMapping("/item")
-    ItemEntity getItemById(@RequestBody ItemEntity itemEntity) {
-        return itemFacade.changeItem(itemEntity);
+    ItemEntity updateItem(@RequestBody ItemEntity itemEntity) {
+        return itemFacade.updateItem(itemEntity);
     }
 
     @PostMapping("/item")

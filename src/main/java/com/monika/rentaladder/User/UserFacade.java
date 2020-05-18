@@ -1,5 +1,9 @@
 package com.monika.rentaladder.User;
 
+import com.monika.rentaladder.User.UserDTOs.UserCredentials;
+import com.monika.rentaladder.User.UserDTOs.UserEntity;
+import com.monika.rentaladder.User.UserDTOs.UserPoints;
+
 public class UserFacade {
 
     private UserRepository userRepository;
@@ -8,7 +12,16 @@ public class UserFacade {
         this.userRepository = userRepository;
     }
 
-    public UserEntity addUser(UserEntity user){
+    public UserEntity addUser(UserEntity user) throws Exception {
+        UserEntity userEntity = userRepository.findByName(user.getName());
+        if (userEntity!=null) {
+            throw new Exception("Name already exist");
+        }
+        user.setPoints(0);
+        return userRepository.save(user);
+    }
+
+    public UserEntity updateUser(UserEntity user) {
         return userRepository.save(user);
     }
 
@@ -16,12 +29,12 @@ public class UserFacade {
         return userRepository.findByName(name);
     }
 
-    public UserDTO authenticateUser(UserDTO user) throws Exception {
+    public UserPoints authenticateUser(UserCredentials user) throws Exception {
         UserEntity userEntity = userRepository.findByName(user.getName());
         if ((!user.getPassword().equals(userEntity.getPassword())) || userEntity==null) {
             throw new Exception("Wrong name or password");
         }
-        return user.noPassword();
+        return new UserPoints(userEntity);
     }
 
 }

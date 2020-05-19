@@ -15,7 +15,7 @@ public class MailService {
 
     private JavaMailSender javaMailSender;
 
-    private final String baseURL = "";
+    private final String baseURL = "http://localhost:8080/";
 
     @Autowired
     public MailService(JavaMailSender javaMailSender) {
@@ -23,7 +23,8 @@ public class MailService {
     }
 
     public void sendRequestMail(UserEntity owner, UserEntity user, String itemName, Long rentalId) {
-        String htmlContent = "User " + user.getName() + " wants to rent your " + itemName + ".<br>" +
+        String htmlContent = "User " + user.getName() + " (" + user.getPoints() + " points) +" +
+                "wants to rent your " + itemName + ".<br>" +
                 "Do you agree?<br><br>" +
                 "<a href=\"" + baseURL + "/confirmRental/" + rentalId + "\"><button>OK</button></a>   " +
                 "<a href=\"" + baseURL + "/denyRental/" + rentalId + "\"><button>NO</button></a>";
@@ -38,6 +39,16 @@ public class MailService {
                 ".</b><br><br>"+
                 "Please contact User " + owner + " to arrange its pick-up.<br>" +
                 "Phone number: " + owner.getPhoneNumber();
+        try {
+            sendMail(user.geteMail(), "Item owner contact details", htmlContent);
+        } catch (MessagingException e) {
+        }
+    }
+
+    public void sendSorryMail(UserEntity owner, UserEntity user, String itemName, Long rentalId) {
+        String htmlContent = "This is a message regarding your rental request for <b>" + itemName +
+                ".</b><br><br>"+
+                "Sorry ;( You have to ask somebody else...";
         try {
             sendMail(user.geteMail(), "Item owner contact details", htmlContent);
         } catch (MessagingException e) {

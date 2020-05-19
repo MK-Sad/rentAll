@@ -40,6 +40,8 @@ public class RentalEventHandler {
             case SORRY:
                 owner.setPoints(owner.getPoints() - 1);
                 userFacade.updateUser(owner);
+                mailService.sendSorryMail(user, owner,
+                        rentalEvent.getItemName(), rentalEvent.getRentalId());
                 break;
             case RETURN_IN_TIME:
                 user.setPoints(user.getPoints() + 1);

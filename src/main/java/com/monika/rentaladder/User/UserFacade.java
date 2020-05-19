@@ -29,6 +29,10 @@ public class UserFacade {
         return userRepository.findByName(name);
     }
 
+    public UserPoints getPointsByName(String name){
+        return new UserPoints(userRepository.findByName(name));
+    }
+
     public UserPoints authenticateUser(UserCredentials user) throws Exception {
         UserEntity userEntity = userRepository.findByName(user.getName());
         if ((!user.getPassword().equals(userEntity.getPassword())) || userEntity==null) {

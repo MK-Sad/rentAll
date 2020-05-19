@@ -22,6 +22,11 @@ public class UserController {
         return userFacade.getUserByName(name);
     }
 
+    @GetMapping("/points/{name}")
+    UserPoints getPointsByNamee(@PathVariable String name){
+        return userFacade.getPointsByName(name);
+    }
+
     @PostMapping("/user")
     public UserEntity addUser(@RequestBody UserEntity user) {
         try {

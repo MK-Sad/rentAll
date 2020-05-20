@@ -11,4 +11,12 @@ public class UserPoints {
         this.points = userEntity.getPoints();
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public Integer getPoints() {
+        return points;
+    }
+
 }

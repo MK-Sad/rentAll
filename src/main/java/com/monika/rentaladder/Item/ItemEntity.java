@@ -26,6 +26,8 @@ public class ItemEntity {
 
     private Integer rentalPeriod;
 
+    private String imageName;
+
     public ItemEntity() {};
 
     public Long getId() {
@@ -90,6 +92,14 @@ public class ItemEntity {
 
     public void setRentalPeriod(Integer rentalPeriod) {
         this.rentalPeriod = rentalPeriod;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
 }

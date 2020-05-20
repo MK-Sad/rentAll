@@ -19,6 +19,8 @@ public class RentalEntity {
 
     private Long itemId;
 
+    private String itemName;
+
     private Instant confirmedDate;
 
     private Instant rentalDate;
@@ -91,6 +93,14 @@ public class RentalEntity {
 
     public void setConfirmedDate(Instant requestDate) {
         this.confirmedDate = requestDate;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
 }

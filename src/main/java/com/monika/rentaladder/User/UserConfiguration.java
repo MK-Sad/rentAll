@@ -29,10 +29,10 @@ public class UserConfiguration {
     }
 
     //TODO for tests
-    //@Bean(name="sendingEmailTaskExecutor")
-    //@Profile(Profiles.TEST)
-    //TaskExecutor singleThreadBonusPointsTaskExecutor() {
-        //return (Runnable task) -> task.run();
-    //}
+    //    //@Bean(name="sendingEmailTaskExecutor")
+    //    //@Profile(Profiles.TEST)
+    //    //TaskExecutor singleThreadBonusPointsTaskExecutor() {
+    //        //return (Runnable task) -> task.run();
+    //    //}
 
 }

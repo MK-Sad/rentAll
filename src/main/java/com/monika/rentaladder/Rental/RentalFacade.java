@@ -37,9 +37,10 @@ public class RentalFacade {
         ItemEntity item = itemRepository.findById(rental.getItemId());
         item.setRented(true);
         itemRepository.save(item);
-        publisher.publishEvent(new RentalEvent(RentalEvent.Type.REQUEST, rental.getUserName(),
-                rental.getOwnerName(), rental.getItemName(), rental.getId()));
-        return rentalRepository.save(rental);
+        RentalEntity newRental = rentalRepository.save(rental);
+        publisher.publishEvent(new RentalEvent(RentalEvent.Type.REQUEST, newRental.getUserName(),
+                newRental.getOwnerName(), newRental.getItemName(), newRental.getId()));
+        return newRental;
     }
 
     public RentalEntity returnItem(Long itemId) {

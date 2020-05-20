@@ -37,7 +37,7 @@ public class MailService {
     public void sendOwnerDataMail(UserEntity user, UserEntity owner, String itemName, Long rentalId) {
         String htmlContent = "This is a message regarding your rental request for <b>" + itemName +
                 ".</b><br><br>"+
-                "Please contact User " + owner + " to arrange its pick-up.<br>" +
+                "Please contact User " + owner.getName() + " to arrange its pick-up.<br>" +
                 "Phone number: " + owner.getPhoneNumber();
         try {
             sendMail(user.geteMail(), "Item owner contact details", htmlContent);
@@ -50,7 +50,7 @@ public class MailService {
                 ".</b><br><br>"+
                 "Sorry ;( You have to ask somebody else...";
         try {
-            sendMail(user.geteMail(), "Item owner contact details", htmlContent);
+            sendMail(user.geteMail(), "Item owner denied", htmlContent);
         } catch (MessagingException e) {
         }
     }

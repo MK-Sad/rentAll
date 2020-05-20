@@ -26,8 +26,8 @@ public class MailService {
         String htmlContent = "User " + user.getName() + " (" + user.getPoints() + " points) +" +
                 "wants to rent your " + itemName + ".<br>" +
                 "Do you agree?<br><br>" +
-                "<a href=\"" + baseURL + "/confirmRental/" + rentalId + "\"><button>OK</button></a>   " +
-                "<a href=\"" + baseURL + "/denyRental/" + rentalId + "\"><button>NO</button></a>";
+                "<a href=\"" + baseURL + "/confirmRentalMail/" + rentalId + "\"><button>OK</button></a>   " +
+                "<a href=\"" + baseURL + "/denyRentalMail/" + rentalId + "\"><button>NO</button></a>";
         try {
             sendMail(owner.geteMail(), "Rental Request from " + user.getName(), htmlContent);
         } catch (MessagingException e) {

@@ -2,6 +2,7 @@ package com.monika.rentaladder.Rental;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 
@@ -15,15 +16,15 @@ public class RentalHtmlController {
         this.rentalFacade = rentalFacade;
     }
 
-    @PutMapping("/confirmRentalMail/{rentalId}")
+    @GetMapping("/confirmRentalMail/{rentalId}")
     public String confirmRental(@PathVariable Long rentalId) {
         rentalFacade.confirmRental(rentalId);
-        return "confirmed.html";
+        return "confirmed";
     }
 
-    @PutMapping("/denyRentalMail/{rentalId}")
+    @GetMapping("/denyRentalMail/{rentalId}")
     public String denyRental(@PathVariable Long rentalId) {
         rentalFacade.denyRental(rentalId);
-        return "deny.html";
+        return "deny";
     }
 }

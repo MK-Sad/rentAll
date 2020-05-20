@@ -71,6 +71,9 @@ public class RentalFacade {
 
     public RentalEntity confirmRental(Long rentalId) {
         RentalEntity rental = rentalRepository.findById(rentalId);
+        if (rental.getConfirmedDate() != null) {
+            return rental;
+        }
         Clock clock = Clock.systemUTC();
         Instant confirmedDate = clock.instant();
         rental.setConfirmedDate(confirmedDate);
@@ -81,6 +84,9 @@ public class RentalFacade {
 
     public RentalEntity denyRental(Long rentalId) {
         RentalEntity rental = rentalRepository.findById(rentalId);
+        if (rental.getReturnDate() != null) {
+            return rental;
+        }
         Clock clock = Clock.systemUTC();
         Instant returnDate = clock.instant();
         rental.setReturnDate(returnDate);

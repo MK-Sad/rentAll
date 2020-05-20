@@ -2,9 +2,8 @@ package com.monika.rentaladder.Rental;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @Controller
@@ -16,15 +15,14 @@ public class RentalHtmlController {
         this.rentalFacade = rentalFacade;
     }
 
-    @GetMapping("/confirmRentalMail/{rentalId}")
+    @RequestMapping("/confirmRentalMail/{rentalId}")
     public String confirmRental(@PathVariable Long rentalId) {
-        rentalFacade.confirmRental(rentalId);
-        return "confirmed";
+        return rentalFacade.confirmRental(rentalId) != null ? "confirmed" : "alreadyClicked";
     }
 
-    @GetMapping("/denyRentalMail/{rentalId}")
+    @RequestMapping("/denyRentalMail/{rentalId}")
     public String denyRental(@PathVariable Long rentalId) {
-        rentalFacade.denyRental(rentalId);
-        return "deny";
+        return rentalFacade.denyRental(rentalId) != null ? "deny" : "alreadyClicked";
     }
+
 }

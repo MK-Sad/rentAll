@@ -37,8 +37,8 @@ public class RentalFacade {
         ItemEntity item = itemRepository.findById(rental.getItemId());
         item.setRented(true);
         itemRepository.save(item);
-        publisher.publishEvent(new RentalEvent(RentalEvent.Type.REQUEST, rental.getOwnerName(),
-                rental.getItemName(), rental.getUserName(), rental.getId()));
+        publisher.publishEvent(new RentalEvent(RentalEvent.Type.REQUEST, rental.getUserName(),
+                rental.getOwnerName(), rental.getItemName(), rental.getId()));
         return rentalRepository.save(rental);
     }
 
@@ -59,11 +59,11 @@ public class RentalFacade {
         }
         int realDays = calculateRentalDays(result.getConfirmedDate(), returnDate);
         if (realDays <= rentalEntity.getRentalPeriod()) {
-            publisher.publishEvent(new RentalEvent(RentalEvent.Type.RETURN_IN_TIME, result.getOwnerName(),
-                    result.getItemName(), result.getUserName(), result.getId()));
+            publisher.publishEvent(new RentalEvent(RentalEvent.Type.RETURN_IN_TIME, result.getUserName(),
+                    result.getOwnerName(), result.getItemName(),  result.getId()));
         } else {
-            publisher.publishEvent(new RentalEvent(RentalEvent.Type.RETURN_DELAYED, result.getOwnerName(),
-                    result.getItemName(), result.getUserName(), result.getId()));
+            publisher.publishEvent(new RentalEvent(RentalEvent.Type.RETURN_DELAYED, result.getUserName(),
+                    result.getOwnerName(), result.getItemName(),  result.getId()));
         }
         return rentalEntity;
     }
@@ -73,8 +73,8 @@ public class RentalFacade {
         Clock clock = Clock.systemUTC();
         Instant confirmedDate = clock.instant();
         rental.setConfirmedDate(confirmedDate);
-        publisher.publishEvent(new RentalEvent(RentalEvent.Type.CONTACT, rental.getOwnerName(),
-                rental.getItemName(), rental.getUserName(), rental.getId()));
+        publisher.publishEvent(new RentalEvent(RentalEvent.Type.CONTACT, rental.getUserName(),
+                rental.getOwnerName(), rental.getItemName(), rental.getId()));
         return rentalRepository.save(rental);
     }
 
@@ -89,8 +89,8 @@ public class RentalFacade {
             item.setRented(false);
             itemRepository.save(item);
         }
-        publisher.publishEvent(new RentalEvent(RentalEvent.Type.SORRY, resultRental.getOwnerName(),
-                resultRental.getItemName(), resultRental.getUserName(), resultRental.getId()));
+        publisher.publishEvent(new RentalEvent(RentalEvent.Type.SORRY, resultRental.getUserName(),
+                resultRental.getOwnerName(), resultRental.getItemName(), resultRental.getId()));
         return rental;
     }
 

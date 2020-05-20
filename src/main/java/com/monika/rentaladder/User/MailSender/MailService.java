@@ -22,7 +22,7 @@ public class MailService {
         this.javaMailSender = javaMailSender;
     }
 
-    public void sendRequestMail(UserEntity owner, UserEntity user, String itemName, Long rentalId) {
+    public void sendRequestMail(UserEntity user, UserEntity owner, String itemName, Long rentalId) {
         String htmlContent = "User " + user.getName() + " (" + user.getPoints() + " points) +" +
                 "wants to rent your " + itemName + ".<br>" +
                 "Do you agree?<br><br>" +
@@ -34,7 +34,7 @@ public class MailService {
         }
     }
 
-    public void sendOwnerDataMail(UserEntity owner, UserEntity user, String itemName, Long rentalId) {
+    public void sendOwnerDataMail(UserEntity user, UserEntity owner, String itemName, Long rentalId) {
         String htmlContent = "This is a message regarding your rental request for <b>" + itemName +
                 ".</b><br><br>"+
                 "Please contact User " + owner + " to arrange its pick-up.<br>" +
@@ -45,7 +45,7 @@ public class MailService {
         }
     }
 
-    public void sendSorryMail(UserEntity owner, UserEntity user, String itemName, Long rentalId) {
+    public void sendSorryMail(UserEntity user, UserEntity owner, String itemName, Long rentalId) {
         String htmlContent = "This is a message regarding your rental request for <b>" + itemName +
                 ".</b><br><br>"+
                 "Sorry ;( You have to ask somebody else...";

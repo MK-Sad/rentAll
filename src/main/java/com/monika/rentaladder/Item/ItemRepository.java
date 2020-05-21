@@ -16,6 +16,8 @@ public interface ItemRepository extends Repository<ItemEntity, Long> {
 
     List<ItemEntity> findByOwner(String owner);
 
+    List<ItemEntity> findAllByNameContainingAndAvailableAndRented(String name, boolean available, boolean rented);
+
     Page<ItemEntity> findAll(Pageable pageable);
 
 }

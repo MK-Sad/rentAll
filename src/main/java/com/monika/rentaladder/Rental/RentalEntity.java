@@ -15,7 +15,13 @@ public class RentalEntity {
 
     private String userName;
 
+    private String ownerName;
+
     private Long itemId;
+
+    private String itemName;
+
+    private Instant confirmedDate;
 
     private Instant rentalDate;
 
@@ -73,7 +79,28 @@ public class RentalEntity {
         this.rentalPeriod = rentalPeriod;
     }
 
+    public String getOwnerName() {
+        return ownerName;
+    }
 
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
 
+    public Instant getConfirmedDate() {
+        return confirmedDate;
+    }
+
+    public void setConfirmedDate(Instant requestDate) {
+        this.confirmedDate = requestDate;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
 
 }

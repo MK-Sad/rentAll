@@ -22,7 +22,7 @@ public class ItemFacade {
         return itemRepository.findById(id);
     }
 
-    public ItemEntity changeItem(ItemEntity item){
+    public ItemEntity updateItem(ItemEntity item){
         return itemRepository.save(item);
     }
 
@@ -36,6 +36,10 @@ public class ItemFacade {
 
     public Page<ItemEntity> getAllItems(Pageable pageable) {
         return itemRepository.findAll(pageable);
+    }
+
+    public List<ItemEntity> getAllItemsByNameContaining(String namePart) {
+        return itemRepository.findAllByNameContainingAndAvailableAndRented(namePart, true, false);
     }
 
     public List<ItemCategory> getCategories(){

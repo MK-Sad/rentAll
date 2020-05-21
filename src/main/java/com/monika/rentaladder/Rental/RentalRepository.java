@@ -11,9 +11,13 @@ interface RentalRepository extends Repository<RentalEntity, Long> {
 
     RentalEntity save(RentalEntity rentalEntity);
 
+    RentalEntity findById(Long itemId);
+
     RentalEntity findByItemIdAndReturnDate(Long itemId, Instant returnDate);
 
     List<RentalEntity> findByUserNameAndReturnDate(String userName, Instant returnDate);
+
+    List<RentalEntity> findByOwnerNameAndReturnDate(String ownerName, Instant returnDate);
 
     Page<RentalEntity> findAll(Pageable pageable);
 

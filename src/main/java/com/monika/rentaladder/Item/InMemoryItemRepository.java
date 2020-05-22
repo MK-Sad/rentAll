@@ -52,7 +52,7 @@ public class InMemoryItemRepository implements ItemRepository {
     }
 
     @Override
-    public List<ItemEntity> findAllByNameContainingAndAvailableAndRented(String name, boolean available, boolean rented) {
+    public List<ItemEntity> findByNameContainingIgnoreCaseAndAvailableAndRented(String name, boolean available, boolean rented) {
         List<ItemEntity> result = new ArrayList<>();
         map.forEach((k,v) -> {
             if (v.getOwner().equals(name)) {

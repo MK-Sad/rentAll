@@ -25,4 +25,9 @@ public class RentalHtmlController {
         return rentalFacade.denyRental(rentalId) != null ? "deny" : "alreadyClicked";
     }
 
+    @RequestMapping("/")
+    public String start() {
+        return "index";
+    }
+
 }

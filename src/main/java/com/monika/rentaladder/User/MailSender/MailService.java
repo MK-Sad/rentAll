@@ -15,7 +15,7 @@ public class MailService {
 
     private JavaMailSender javaMailSender;
 
-    private final String baseURL = "http://localhost:8080";
+    private final String baseURL = "https://rentall-app.herokuapp.com";
 
     @Autowired
     public MailService(JavaMailSender javaMailSender) {

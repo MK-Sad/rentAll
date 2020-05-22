@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @Controller
 public class RentalHtmlController {
 

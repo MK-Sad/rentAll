@@ -28,7 +28,8 @@ public class InMemoryItemRepository implements ItemRepository {
     public List<ItemEntity> findByCategoryAndAvailableAndRented(ItemCategory itemCategory, boolean available, boolean rented) {
         List<ItemEntity> result = new ArrayList<>();
         map.forEach((k,v) -> {
-            if (v.getCategory().equals(itemCategory)) {
+            if (v.getCategory().equals(itemCategory) &&
+                    ((v.isAvailable() == available) && (v.isRented() == rented))) {
                 result.add(v);
             }
         });
@@ -55,7 +56,8 @@ public class InMemoryItemRepository implements ItemRepository {
     public List<ItemEntity> findByNameContainingIgnoreCaseAndAvailableAndRented(String name, boolean available, boolean rented) {
         List<ItemEntity> result = new ArrayList<>();
         map.forEach((k,v) -> {
-            if (v.getOwner().equals(name)) {
+            if (v.getName().toLowerCase().contains(name.toLowerCase()) &&
+                    ((v.isAvailable() == available) && (v.isRented() == rented))) {
                 result.add(v);
             }
         });

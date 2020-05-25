@@ -26,7 +26,8 @@ public class ItemFacade {
         return itemRepository.save(item);
     }
 
-    public List<ItemEntity> getItemByCategoryAndAvailableAndNotRented(ItemCategory category) {
+    public List<ItemEntity> getItemByCategoryAndAvailableAndNotRented(String categoryName) {
+        ItemCategory category = ItemCategory.getItemCategoryByName(categoryName);
         return itemRepository.findByCategoryAndAvailableAndRented(category, true, false);
     }
 
@@ -42,7 +43,12 @@ public class ItemFacade {
         return itemRepository.findByNameContainingIgnoreCaseAndAvailableAndRented(namePart, true, false);
     }
 
-    public List<ItemCategory> getCategories(){
-        return Arrays.asList(ItemCategory.values());
+    public List<String> getCategories(String languageCode) {
+        switch (languageCode) {
+            case "pl":
+                return ItemCategory.getAllPolishCategories();
+            default:
+                return ItemCategory.getAllEnglishCategories();
+        }
     }
 }

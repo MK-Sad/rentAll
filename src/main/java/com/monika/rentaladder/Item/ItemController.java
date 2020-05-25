@@ -16,9 +16,9 @@ public class ItemController {
         this.itemFacade = itemFacade;
     }
 
-    @GetMapping("categories")
-    List<ItemCategory> getCategories() {
-        return itemFacade.getCategories();
+    @GetMapping("categories/{languageCode}")
+    List<String> getCategories(@PathVariable String languageCode) {
+        return itemFacade.getCategories(languageCode);
     }
 
     @GetMapping("items")
@@ -32,7 +32,7 @@ public class ItemController {
     }
 
     @GetMapping("item/category/{category}")
-    List<ItemEntity> getItemByCategory(@PathVariable ItemCategory category) {
+    List<ItemEntity> getItemByCategory(@PathVariable String category) {
         return itemFacade.getItemByCategoryAndAvailableAndNotRented(category);
     }
 

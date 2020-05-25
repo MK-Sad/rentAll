@@ -32,17 +32,33 @@ class ItemFacadeTest {
         //given
         String categoryName = "TOYS";
         ItemCategory testCategory = ItemCategory.getItemCategoryByName(categoryName);
-        ItemEntity testItemEntity = new ItemEntity();
-        testItemEntity.setId(5L);
-        testItemEntity.setCategory(testCategory);
+        ItemEntity testItemEntity1 = new ItemEntity();
+        testItemEntity1.setId(5L);
+        testItemEntity1.setCategory(testCategory);
+        testItemEntity1.setRented(false);
+        testItemEntity1.setAvailable(true);
+
+        ItemEntity testItemEntity2 = new ItemEntity();
+        testItemEntity2.setId(5L);
+        testItemEntity2.setCategory(testCategory);
+        testItemEntity2.setRented(true);
+        testItemEntity2.setAvailable(true);
+
+        ItemEntity testItemEntity3 = new ItemEntity();
+        testItemEntity3.setId(5L);
+        testItemEntity3.setCategory(testCategory);
+        testItemEntity3.setRented(false);
+        testItemEntity3.setAvailable(true);
 
         //when
-        itemFacade.addItem(testItemEntity);
+        itemFacade.addItem(testItemEntity1);
+        itemFacade.addItem(testItemEntity2);
+        itemFacade.addItem(testItemEntity3);
         List<ItemEntity> result = itemFacade.getItemByCategoryAndAvailableAndNotRented(categoryName);
 
         //then
         assertEquals(1, result.size());
-        assertEquals(testItemEntity, result.get(0));
+        assertEquals(testItemEntity1.getId(), result.get(0).getId());
     }
 
 }

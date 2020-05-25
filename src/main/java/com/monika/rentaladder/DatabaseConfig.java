@@ -5,7 +5,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import javax.sql.DataSource;
 
-@Configuration
+
+//@Configuration
 public class DatabaseConfig {
 
     @Value("${spring.datasource.url}")

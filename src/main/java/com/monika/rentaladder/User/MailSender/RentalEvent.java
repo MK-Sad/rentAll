@@ -1,5 +1,7 @@
 package com.monika.rentaladder.User.MailSender;
 
+import java.util.Objects;
+
 public class RentalEvent {
 
     public enum Type
@@ -43,6 +45,17 @@ public class RentalEvent {
 
     public RentalEvent.Type getMassageType() {
         return messageType;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+        RentalEvent event = (RentalEvent) object;
+        return messageType == event.messageType &&
+                Objects.equals(getUserName(), event.getUserName()) &&
+                Objects.equals(getItemName(), event.getItemName()) &&
+                Objects.equals(getOwnerName(), event.getOwnerName()) &&
+                Objects.equals(getRentalId(), event.getRentalId());
     }
 
 }

@@ -22,7 +22,7 @@ class RentalFacadeTest {
     RentalFacade rentalFacade;
 
     @Test
-    void rentItemTest() {
+    void rentAndConfirmedItemTest() {
 
         MockitoAnnotations.initMocks(this);
         rentalFacade = new RentalConfiguration().rentalFacade(itemRepository, mockPublisher);
@@ -41,25 +41,24 @@ class RentalFacadeTest {
         testRentalEntity.setOwnerName("Kazik");
 
         //than what do you do with what you have
-        RentalEvent requestEvent = new RentalEvent(RentalEvent.Type.REQUEST, testRentalEntity.getUserName(),
-                testRentalEntity.getOwnerName(), testRentalEntity.getItemName(), testRentalEntity.getId());
         RentalEntity result = rentalFacade.rentItem(testRentalEntity);
 
         //check result (is requested)
+        RentalEvent expectedRequestEvent = new RentalEvent(RentalEvent.Type.REQUEST, testRentalEntity.getUserName(),
+                testRentalEntity.getOwnerName(), testRentalEntity.getItemName(), testRentalEntity.getId());
         assertTrue(rentalFacade.isItemRented(testItemId));
         assertTrue(itemRepository.findById(testItemId).isRented());
         assertTrue(result.getRentalDate() != null);
-        //verify(mockPublisher).publishEvent(requestEvent);
-        //TODO add equals method for RentalEvent
+        verify(mockPublisher).publishEvent(expectedRequestEvent);
 
-        //than
+        //when
         RentalEvent confirmedEvent = new RentalEvent(RentalEvent.Type.CONTACT, testRentalEntity.getUserName(),
                 testRentalEntity.getOwnerName(), testRentalEntity.getItemName(), testRentalEntity.getId());
         RentalEntity resultConfirmed = rentalFacade.confirmRental(2L);
 
         //check result (is rented)
-        assertTrue(result.getConfirmedDate() != null);
-        //verify(mockPublisher).publishEvent(confirmedEvent);
+        assertTrue(resultConfirmed.getConfirmedDate() != null);
+        verify(mockPublisher).publishEvent(confirmedEvent);
     }
 
     @Test
@@ -88,8 +87,11 @@ class RentalFacadeTest {
         RentalEntity result = rentalFacade.returnItem(testItemId);
 
         //then
+        RentalEvent expectedInTimeEvent = new RentalEvent(RentalEvent.Type.RETURN_IN_TIME, testRentalEntity.getUserName(),
+                testRentalEntity.getOwnerName(), testRentalEntity.getItemName(), testRentalEntity.getId());
         assertTrue(result.getReturnDate() != null);
         assertFalse(rentalFacade.isItemRented(testItemId));
         assertFalse(itemRepository.findById(testItemId).isRented());
+        verify(mockPublisher).publishEvent(expectedInTimeEvent);
     }
 }

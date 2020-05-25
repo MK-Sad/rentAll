@@ -59,4 +59,27 @@ class RentalEventHandlerTest {
         assertEquals("item name", captorName.getValue());
         assertEquals(2L, captorId.getValue());
     }
+
+    @Test
+    void addingPointsReturnDelayedTest() throws Exception {
+        MockitoAnnotations.initMocks(this);
+        //given
+        UserEntity user = new UserEntity();
+        user.setName("Monika");
+        user.setPoints(0);
+        UserEntity owner = new UserEntity();
+        owner.setName("Kazik");
+        owner.setPoints(0);
+        userFacade.addUser(user);
+        userFacade.addUser(owner);
+        RentalEvent rentalEvent = new RentalEvent(RentalEvent.Type.RETURN_DELAYED, user.getName(),
+                owner.getName(), "item name",  2L);
+
+        //when
+        rentalEventHandler.eventListener(rentalEvent);
+
+        //then
+        UserEntity updatedUser = userFacade.getUserByName(user.getName());
+        assertEquals(-10, updatedUser.getPoints());
+    }
 }

@@ -69,6 +69,11 @@ public class RentalFacade {
         return rentalEntity;
     }
 
+    public RentalEntity confirmRentalCheck(Long rentalId) {
+        RentalEntity rental = rentalRepository.findById(rentalId);
+        return (rental.getConfirmedDate() != null) ? null : confirmRental(rentalId);
+    }
+
     public RentalEntity confirmRental(Long rentalId) {
         RentalEntity rental = rentalRepository.findById(rentalId);
         if (rental == null || rental.getConfirmedDate() != null) {
@@ -80,6 +85,11 @@ public class RentalFacade {
         publisher.publishEvent(new RentalEvent(RentalEvent.Type.CONTACT, rental.getUserName(),
                 rental.getOwnerName(), rental.getItemName(), rental.getId()));
         return rentalRepository.save(rental);
+    }
+
+    public RentalEntity denyRentalCheck(Long rentalId) {
+        RentalEntity rental = rentalRepository.findById(rentalId);
+        return (rental.getReturnDate() != null) ? null : denyRental(rentalId);
     }
 
     public RentalEntity denyRental(Long rentalId) {

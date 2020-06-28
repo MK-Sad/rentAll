@@ -16,12 +16,12 @@ public class RentalHtmlController {
 
     @RequestMapping("/confirmRentalMail/{rentalId}")
     public String confirmRental(@PathVariable Long rentalId) {
-        return rentalFacade.confirmRental(rentalId) != null ? "confirmed" : "alreadyClicked";
-    }
+        return rentalFacade.confirmRentalCheck(rentalId) != null ? "confirmed" : "alreadyClicked";
+}
 
     @RequestMapping("/denyRentalMail/{rentalId}")
     public String denyRental(@PathVariable Long rentalId) {
-        return rentalFacade.denyRental(rentalId) != null ? "deny" : "alreadyClicked";
+        return rentalFacade.denyRentalCheck(rentalId) != null ? "deny" : "alreadyClicked";
     }
 
     @RequestMapping("/")

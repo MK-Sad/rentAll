@@ -7,7 +7,7 @@ If you want to lend an item, click on “Rent [item] for [x] days” and await f
 The owner will get an e-mail and will accept or deny your request.
 Each user collects points (visible on top right corner).
 
-![alt text](https://github.com/MK-Sad/rentAll/blob/master/rentAll/src/main/resources/static/images/Login window.jpg
-![alt text](https://github.com/MK-Sad/rentAll/blob/master/rentAll/src/main/resources/static/images/Panel view.jpg
-![alt text](https://github.com/MK-Sad/rentAll/blob/master/rentAll/src/main/resources/static/images/E-mail.jpg
+![alt text](https://github.com/MK-Sad/rentAll/blob/master/rentAll/src/main/resources/static/images/Login window.jpg)
+![alt text](https://github.com/MK-Sad/rentAll/blob/master/rentAll/src/main/resources/static/images/Panel view.jpg)
+![alt text](https://github.com/MK-Sad/rentAll/blob/master/rentAll/src/main/resources/static/images/E-mail.jpg)
 ![alt text](https://github.com/MK-Sad/rentAll/blob/master/Backend.jpg)

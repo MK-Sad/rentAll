@@ -18,4 +18,4 @@ The only 2 relations occur between rental and item module (rental sends informat
 High modularity gives a possibility of using microservices architecture and making the app more scalable.
 ![alt text](https://github.com/MK-Sad/rentAll/blob/master/src/main/resources/static/images/Microservices.jpg?raw=true)
 
-Link to application RentAll[Frontend Angular](https://github.com/MK-Sad/RentAllAngular)
+Link to application RentAll [Frontend Angular](https://github.com/MK-Sad/RentAllAngular)

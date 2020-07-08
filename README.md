@@ -16,5 +16,5 @@ There is a low coupling between modules.
 The only 2 relations occur between rental and item module (rental sends information and item’s status is changed) and between rental and user module (initialization of sending email to the owner and calculating points by using events).
 ![alt text](https://github.com/MK-Sad/rentAll/blob/master/Backend.jpg)
 
-High modularity gives a possibility of using microservices architecture and making the app more scalable.
+High modularity gives a possibility of moving easily to microservices architecture and making the app more scalable.
 ![alt text](https://github.com/MK-Sad/rentAll/blob/master/src/main/resources/static/images/Microservices.jpg?raw=true)

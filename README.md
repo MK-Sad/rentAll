@@ -1,4 +1,4 @@
-**Local communities sharing platform**
+**Local communities sharing platform**<br>
 Link to application RentAll [Frontend Angular](https://github.com/MK-Sad/RentAllAngular)
 
 RentAll is an application designed for local communities, it helps neighbors to share and borrow things like household items, tools or toys.
